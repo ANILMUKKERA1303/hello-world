@@ -22,7 +22,7 @@ pipeline {
         stage("Build") {
             steps {
                 sh "mvn clean package"
-                sh "mv target/hello-1.0.war target/Breadcrumbshello-world
+                sh "mv target/hello-1.0.war target/hello-world
 "
             }
         }
@@ -31,7 +31,7 @@ pipeline {
                 expression { params.BRANCH_NAME == 'fe/dev' }
             }
             steps {
-                deployToTomcat('3.145.74.35', 'tomcat', 'tomcat', 'http://3.145.74.35:8080/manager/text', '/Breadcrumbshello-world
+                deployToTomcat('3.145.74.35', 'tomcat', 'tomcat', 'http://3.145.74.35:8080/manager/text', '/hello-world
 ', 'Dev')
             }
         }
@@ -40,7 +40,7 @@ pipeline {
                 expression { params.BRANCH_NAME == 'fe/qa' }
             }
             steps {
-                deployToTomcat('3.147.59.58', 'tomcat', 'tomcat', 'http://3.147.59.58:8080/manager/text', '/Breadcrumbshello-world
+                deployToTomcat('3.147.59.58', 'tomcat', 'tomcat', 'http://3.147.59.58:8080/manager/text', '/hello-world
 ', 'QA')
             }
         }
@@ -52,7 +52,7 @@ pipeline {
                 input(message: "Do you want to proceed to PROD?", ok: "Proceed") // Approval step
 
                 // Deploy to PROD server after approval
-                deployToTomcat('3.144.172.226', 'tomcat', 'tomcat', 'http://3.144.172.226:8080/manager/text', '/Breadcrumbshello-world
+                deployToTomcat('3.144.172.226', 'tomcat', 'tomcat', 'http://3.144.172.226:8080/manager/text', '/hello-world
 ', 'Prod')
                 
                 // Send Slack notification
